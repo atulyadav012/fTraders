@@ -1,0 +1,63 @@
+
+<script type="text/javascript">
+function RoundTheNumber()
+{
+   var ta = new Array();
+   for(var i=0; i<arguments.length; i++) { ta.push(arguments[i]); }
+   if( ta.length < 1 ) { return false; }
+   var number = parseFloat(ta.shift());
+   var count = ta.length;
+   if(count===0)
+   {
+      ta.push('r');
+      ta.push(false);
+   }
+   else if(count===1)
+   {
+      var s = new String(ta[0]);
+      ta[0] = s;
+      if(ta[0].match(/^\d+$/) )
+      {
+         ta.push(ta[0]);
+         ta[0] = 'r';
+      }
+      else { ta.push(false); }
+   }
+   if(ta[0].match(/^u/i) || ta[0].match(/^c/i)) { ta[0] = 'c'; }
+   else if(ta[0].match(/^d/i) || ta[0].match(/^f/i)) { ta[0] = 'f'; }
+   else { ta[0] = 'r'; }
+   if( ta[1] )
+   {
+      var zeros = new String( ((1.0).toFixed(ta[1])).substr(2) );
+      var md = parseInt("1"+zeros);
+      switch(ta[0])
+      {
+         case 'c' : return (Math.ceil(number*md)/md).toFixed(ta[1]);
+         case 'f' : return (Math.floor(number*md)/md).toFixed(ta[1]);
+         case 'r' : return (Math.round(number*md)/md).toFixed(ta[1]);
+      }
+   }
+   switch(ta[0])
+   {
+      case 'c' : return Math.ceil(number);
+      case 'f' : return Math.floor(number);
+      default  : return Math.round(number);
+   }
+}
+
+console.log(RoundTheNumber(7.45,'c', 1));
+console.log(RoundTheNumber(-7.45,'f', 1));
+
+console.log(RoundTheNumber(7.55,'c', 1));
+console.log(RoundTheNumber(-7.55,'f', 1));
+
+console.log(RoundTheNumber(1.005,'c', 2));
+console.log(RoundTheNumber(-1.005,'f', 2));
+
+console.log(RoundTheNumber(1.015,'c', 2));
+console.log(RoundTheNumber(-1.015,'f', 2));
+</script>
+
+
+test website
+test website
